@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "discord-bot-ai-voice": {
+      "commandName": "Project",
+      "commandLineArgs": "\"D:\\Keystore\\discord-bot-ai-voice\\uberduck_ai_credentials.json\""
+    }
+  }
+}
