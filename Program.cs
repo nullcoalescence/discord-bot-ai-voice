@@ -20,15 +20,14 @@ public class Program
         var uberduckAiCreds = JsonConvert.DeserializeObject<UberDuckApiCredentials>(File.ReadAllText(args[0])?? string.Empty);
         var uberduckAiService = new UberDuckAIService(uberduckAiCreds.ApiKey, uberduckAiCreds.ApiSecret);
 
-        var url = await uberduckAiService.GetVoiceURL("I put brown sauce on my sausage supper!");
+        var url = await uberduckAiService.GetVoiceURL("I put brown sauce on my sausage supper! Please don't fart gordon I beg of you you");
 
         // Download
         var downloadService = new DownloadService(url, @"c:\users\btov1\Downloads", "drake.wav");
-        await downloadService.Download();
+        var dl = await downloadService.DownloadFile();
 
-
-        // args
-        // -local --path ~/downloads --name drake.mp4 --prompt 'haha prompt' 
-        // -discord --discord_creds --prompt 'haha'
+        // Play
+        var playerService = new PlayerService();
+        playerService.PlayWavFile(dl);
     }
 }

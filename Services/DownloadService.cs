@@ -2,7 +2,7 @@
 
 namespace discord_bot_ai_voice.Services
 {
-    internal class DownloadService
+    internal class DownloadService : IDownloadService
     {
         private readonly string url;
         private readonly string path;
@@ -24,7 +24,7 @@ namespace discord_bot_ai_voice.Services
             this.downloadPath = Path.Combine(this.path, this.fileName);
         }
 
-        public async Task Download()
+        public async Task<string> DownloadFile()
         {
             Console.WriteLine($"Downloading: {this.url}...");
 
@@ -36,6 +36,8 @@ namespace discord_bot_ai_voice.Services
             }
 
             Console.WriteLine($"Downloaded '{this.fileName}' to: {this.path}.");
+
+            return this.downloadPath;
         }
 
         private async Task DownloadFile(HttpClient client, Uri uri)

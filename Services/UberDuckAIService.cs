@@ -44,20 +44,24 @@ namespace discord_bot_ai_voice.Services
             var speakEndpointResponse = await this.MakeCallToSpeakEndpoint(prompt);
 
             // Sleep between calls to give the API time to generate the voice
-            Console.WriteLine("Sleeping (5s)...");
-            Thread.Sleep(5000);
+            Console.WriteLine("Sleeping (10s)...");
+            Thread.Sleep(10000);
 
             // Make second call to uberduck.ai to get the url for the recording
             Console.WriteLine("Building http request to 'api.uberduck.ai/speak-status'...");
             var speakStatusResponse = await this.MakeCallToSpeakStatusEndpoint(speakEndpointResponse);
 
             // Check if we were rate-limited. If so, sleep for 30 seconds and try again
-            while (RequestFailedOrRateLimited(speakStatusResponse))
+            var reqFailed = RequestFailedOrRateLimited(speakStatusResponse);
+
+            while (reqFailed)
             {
                 Console.WriteLine("Sleeping for 30s then trying again.(press Ctrl+C to cancel process)");
 
                 Thread.Sleep(30000);
                 speakStatusResponse = await this.MakeCallToSpeakStatusEndpoint(speakEndpointResponse);
+
+                reqFailed = RequestFailedOrRateLimited(speakStatusResponse);
             }
 
             return speakStatusResponse.Path;
@@ -114,6 +118,7 @@ namespace discord_bot_ai_voice.Services
         }
 
         // Check 'UberDuckApiSpeakStatusResponse' model, if 'failed_at' is null, rate-limiting is a likely cause.
+        // If all values (other than start_at') then it is probably still generating
         // Could also maybe be malformed voice prompt input that the api didn't like
         private bool RequestFailedOrRateLimited(UberDuckApiSpeakStatusResponse response)
         {
@@ -123,9 +128,17 @@ namespace discord_bot_ai_voice.Services
             }
             else
             {
-                Console.WriteLine("Error: api.uberduck.ai: '/speak-status' endpoint. Likely you are being rate-limited, try again later. Also check your prompt for any odd inputs.");
-                Console.WriteLine("Response data:");
-                Console.WriteLine($"- meta: {response.Meta}\n- failed_at: {response.FailedAt}");
+                if (response.FailedAt is not null)
+                {
+                    Console.WriteLine("Error: api.uberduck.ai: '/speak-status' endpoint. Likely you are being rate-limited, try again later. Also check your prompt for any odd inputs.");
+                    Console.WriteLine("Response data:");
+                    Console.WriteLine($"- meta: {response.Meta}\n- failed_at: {response.FailedAt}");
+                }
+
+                if (response.Meta is null && response.FinishedAt is null)
+                {
+                    Console.WriteLine("Error: api.uberduck.ai: '/speak-status' endpoint. It looks like it is not finished processing your request.");
+                }
 
                 return true;
             }
