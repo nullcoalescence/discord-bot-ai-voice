@@ -2,6 +2,6 @@
 {
     internal interface IDownloadService
     {
-        public Task DownloadFile(string url, string directory, string fileName);
+        public Task<string> DownloadFile();
     }
 }
