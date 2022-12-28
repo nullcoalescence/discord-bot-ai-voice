@@ -3,13 +3,13 @@ so the drake voice on uberduck.ai is kinda funny so it would be nice to get reco
 
 ## usage: (TODO)
 ### discord
-```--discord --perist=-1```
+```-discord --perist=-1```
 
 ### command line
-```--commandline --download 'c:/users/ben/downloads' --filename 'drake.mp3'
+```-commandline --download 'c:/users/ben/downloads' --filename 'drake.mp3'```
 
 ### gui
--gui
+```-gui```
 
 ## todo
 - credential storage model (one file  for uberduck.ai and discord auth token/keys/secrets/etc)
