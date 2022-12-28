@@ -1,14 +1,21 @@
 # discord-bot-ai-voice
+so the drake voice on uberduck.ai is kinda funny so it would be nice to get recordings thru the terminal, or even a discord bot. uberduck.ai's api outputs a url to the voice model on their amazon s3 bucket. its easy enough to query their api and do stuff with it.
+
+## usage: (TODO)
+### discord
+```--discord --perist=-1```
+
+### command line
+```--commandline --download 'c:/users/ben/downloads' --filename 'drake.mp3'
+
+### gui
+-gui
 
 ## todo
-- rate-limiting service - to take into account uverduck ai's rate limiting
-- discord integration
-- command line args for voice model
-- command line args to use with discord or just spit out (and download) the voice recording to a directory
-
-# for rate-limiting service
-have a json lsit of hosts (digital ocean, self-hosted - 2 diff api keys)
-load balancer??
-
-discord flow:
-Generating 
+- credential storage model (one file  for uberduck.ai and discord auth token/keys/secrets/etc)
+- rate-limiting service - to take into account ubderduck.ai's rate limiting
+- command-line args
+- refine discord bot
+- logging (serilog)
+- gui app (wpf?)
+- account for using other voice models other than drake lol
