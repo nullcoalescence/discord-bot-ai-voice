@@ -1,7 +1,9 @@
 ﻿using discord_bot_ai_voice.Models;
 using discord_bot_ai_voice.Services;
+using discord_bot_ai_voice.Discord;
+
 using Newtonsoft.Json;
-using System.Net;
+using Discord.Commands;
 
 public class Program
 {
@@ -16,18 +18,25 @@ public class Program
 
     internal static async Task Main(string[] args)
     {
-        // Generate voice from uberduck.ai
-        var uberduckAiCreds = JsonConvert.DeserializeObject<UberDuckApiCredentials>(File.ReadAllText(args[0])?? string.Empty);
-        var uberduckAiService = new UberDuckAIService(uberduckAiCreds.ApiKey, uberduckAiCreds.ApiSecret);
+        /*
+            // Generate voice from uberduck.ai
+            var uberduckAiCreds = JsonConvert.DeserializeObject<UberDuckApiCredentials>(File.ReadAllText(args[0])?? string.Empty);
+            var uberduckAiService = new UberDuckAIService(uberduckAiCreds.ApiKey, uberduckAiCreds.ApiSecret);
 
-        var url = await uberduckAiService.GetVoiceURL("I put brown sauce on my sausage supper! Please don't fart gordon I beg of you you");
+            var url = await uberduckAiService.GetVoiceURL("I put brown sauce on my sausage supper! Please don't fart gordon I beg of you you");
 
-        // Download
-        var downloadService = new DownloadService(url, @"c:\users\btov1\Downloads", "drake.wav");
-        var dl = await downloadService.DownloadFile();
+            // Download
+            var downloadService = new DownloadService(url, @"c:\users\btov1\Downloads", "drake.wav");
+            var dl = await downloadService.DownloadFile();
 
-        // Play
-        var playerService = new PlayerService();
-        playerService.PlayWavFile(dl);
+            // Play
+            var playerService = new PlayerService();
+            playerService.PlayWavFile(dl);
+        */
+
+        // Discord
+        var discordCommandService = new CommandService();
+        var discordService = new DiscordService(discordCommandService);
+        await discordService.InitBot();
     }
 }
