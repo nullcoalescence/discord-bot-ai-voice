@@ -19,3 +19,6 @@ so the drake voice on uberduck.ai is kinda funny so it would be nice to get reco
 - logging (serilog)
 - gui app (wpf?)
 - account for using other voice models other than drake lol
+- better error handling around http stuff
+- more graceful discord persisted bot experience
+- unit tests
