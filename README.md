@@ -1,5 +1,5 @@
 # discord-bot-ai-voice
-so the drake voice on uberduck.ai is kinda funny so i thought it would be nice to get recordings thru the terminal, or even a discord bot. uberduck.ai's api outputs a url to the voice model on their amazon s3 bucket. its easy enough to query their api and do stuff with it.
+so the drake voice on uberduck.ai is kinda funny so i thought it would be nice to get recordings thru the terminal, or even a discord bot. uberduck.ai's api outputs a url to the voice model on their aws s3 bucket. its easy enough to query their api and do stuff with it.
 
 ## usage: (TODO)
 ### discord
