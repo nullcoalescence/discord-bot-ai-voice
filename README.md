@@ -12,6 +12,7 @@ so the drake voice on uberduck.ai is kinda funny so it would be nice to get reco
 ```-gui```
 
 ## todo
+- dependency injection!!
 - credential storage model (one file  for uberduck.ai and discord auth token/keys/secrets/etc)
 - rate-limiting service - to take into account ubderduck.ai's rate limiting
 - command-line args
@@ -22,3 +23,4 @@ so the drake voice on uberduck.ai is kinda funny so it would be nice to get reco
 - better error handling around http stuff
 - more graceful discord persisted bot experience
 - unit tests
+- cleanup formatting (get around to configuring linter)
